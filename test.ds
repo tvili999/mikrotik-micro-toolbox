@@ -1,5 +1,14 @@
-:start 
-    ping 10.1.0.1
-    sleep 1000
-    echo asd
-    goto :start
+set_timeout 1000 :timeout_1
+set_timeout 2000 :timeout_2
+
+run_scheduler
+
+:timeout_1
+    echo "-"
+    set_timeout 1000 :timeout_1
+    run_scheduler
+
+:timeout_2
+    echo "--"
+    set_timeout 2000 :timeout_2
+    run_scheduler
