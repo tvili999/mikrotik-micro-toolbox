@@ -1,14 +1,21 @@
-set_timeout 1000 :timeout_1
+router1 = add_router 192.168.1.1:8728 admin password
+router2 = add_router 192.168.2.1:8728 admin password
+
+set_timeout 2000 :timeout_1
 set_timeout 2000 :timeout_2
 
 run_scheduler
 
 :timeout_1
-    echo "-"
-    set_timeout 1000 :timeout_1
+    use_router ${router1}
+    hostname
+
+    set_timeout 2000 :timeout_1
     run_scheduler
 
 :timeout_2
-    echo "--"
+    use_router ${router2}
+    hostname
+
     set_timeout 2000 :timeout_2
     run_scheduler

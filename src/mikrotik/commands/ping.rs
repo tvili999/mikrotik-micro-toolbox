@@ -1,11 +1,12 @@
 use std::{cell::RefCell, rc::Rc};
 
-use super::api::RouterOSApi;
+use crate::mikrotik::connections::store::MikroTikStore;
+
 use duckscript::types::command::{Command, CommandResult};
 
 #[derive(Clone)]
 pub struct PingCommand {
-    pub api: Rc<RefCell<RouterOSApi>>,
+    pub store: Rc<RefCell<MikroTikStore>>,
 }
 
 impl Command for PingCommand {
@@ -18,7 +19,9 @@ impl Command for PingCommand {
     }
 
     fn run(&self, arguments: Vec<String>) -> CommandResult {
-        let mut api = self.api.borrow_mut();
+        let mut store = self.store.borrow_mut();
+        let api = store.connect();
+
         let resp = api
             .talk(&[
                 "/ping",
