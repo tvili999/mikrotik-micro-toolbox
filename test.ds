@@ -1,0 +1,5 @@
+:start 
+    ping 10.1.0.1
+    sleep 1000
+    echo asd
+    goto :start
