@@ -19,21 +19,12 @@ impl MikroTik {
     }
 
     pub fn load_commands(&self, commands: &mut Commands) -> Result<(), ScriptError> {
-        commands.set(Box::new(connections::add_router::AddRouterCommand {
-            store: self.store.clone(),
-        }))?;
-        commands.set(Box::new(connections::use_router::UseRouterCommand {
-            store: self.store.clone(),
-        }))?;
-        commands.set(Box::new(connections::close_router::CloseRouterCommand {
-            store: self.store.clone(),
-        }))?;
-        commands.set(Box::new(commands::ping::PingCommand {
-            store: self.store.clone(),
-        }))?;
-        commands.set(Box::new(commands::hostname::HostnameCommand {
-            store: self.store.clone(),
-        }))?;
+        for command in commands::load_commands(&self.store) {
+            commands.set(command)?;
+        }
+        for command in connections::load_commands(&self.store) {
+            commands.set(command)?;
+        }
 
         Ok(())
     }

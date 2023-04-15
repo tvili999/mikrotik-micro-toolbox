@@ -5,11 +5,17 @@ use crate::mikrotik::connections::store::MikroTikStore;
 use duckscript::types::command::{Command, CommandResult};
 
 #[derive(Clone)]
-pub struct HostnameCommand {
-    pub store: Rc<RefCell<MikroTikStore>>,
+pub struct Hostname {
+    store: Rc<RefCell<MikroTikStore>>,
 }
 
-impl Command for HostnameCommand {
+impl Hostname {
+    pub fn new(store: Rc<RefCell<MikroTikStore>>) -> Self {
+        Self { store }
+    }
+}
+
+impl Command for Hostname {
     fn name(&self) -> String {
         "hostname".to_string()
     }

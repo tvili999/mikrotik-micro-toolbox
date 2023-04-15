@@ -5,11 +5,17 @@ use duckscript::types::command::{Command, CommandResult};
 use super::store::MikroTikStore;
 
 #[derive(Clone)]
-pub struct UseRouterCommand {
-    pub store: Rc<RefCell<MikroTikStore>>,
+pub struct UseRouter {
+    store: Rc<RefCell<MikroTikStore>>,
 }
 
-impl Command for UseRouterCommand {
+impl UseRouter {
+    pub fn new(store: Rc<RefCell<MikroTikStore>>) -> Self {
+        Self { store }
+    }
+}
+
+impl Command for UseRouter {
     fn name(&self) -> String {
         "use_router".to_string()
     }

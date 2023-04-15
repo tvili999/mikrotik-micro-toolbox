@@ -5,11 +5,17 @@ use duckscript::types::command::{Command, CommandResult};
 use super::store::{MikroTikConnection, MikroTikStore};
 
 #[derive(Clone)]
-pub struct AddRouterCommand {
-    pub store: Rc<RefCell<MikroTikStore>>,
+pub struct AddRouter {
+    store: Rc<RefCell<MikroTikStore>>,
 }
 
-impl Command for AddRouterCommand {
+impl AddRouter {
+    pub fn new(store: Rc<RefCell<MikroTikStore>>) -> Self {
+        Self { store }
+    }
+}
+
+impl Command for AddRouter {
     fn name(&self) -> String {
         "add_router".to_string()
     }

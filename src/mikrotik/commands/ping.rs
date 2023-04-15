@@ -5,11 +5,17 @@ use crate::mikrotik::connections::store::MikroTikStore;
 use duckscript::types::command::{Command, CommandResult};
 
 #[derive(Clone)]
-pub struct PingCommand {
-    pub store: Rc<RefCell<MikroTikStore>>,
+pub struct Ping {
+    store: Rc<RefCell<MikroTikStore>>,
 }
 
-impl Command for PingCommand {
+impl Ping {
+    pub fn new(store: Rc<RefCell<MikroTikStore>>) -> Self {
+        Self { store }
+    }
+}
+
+impl Command for Ping {
     fn name(&self) -> String {
         "ping".to_string()
     }
